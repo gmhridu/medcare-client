@@ -1,10 +1,13 @@
 import Container from "@/components/Container/Container";
 import NavbarMenu from "@/components/NavbarMenu/NavbarMenu";
 import Searchbar from "@/components/Searchbar/Searchbar";
+import useAuth from "@/Hooks/useAuth";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import profileImage from '@/assets/images/placeholder.jpg'
 
 const Navbar = () => {
+  const {user, logOut} = useAuth()
   const [toggleDropDown, setToggleDropDown] = useState(false);
 
   const handleToggle = () => {
@@ -15,6 +18,11 @@ const Navbar = () => {
     setToggleDropDown(false);
   }
 
+  const handleLogOut = () => {
+  logOut()
+    closeToggle()
+  }
+
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
@@ -22,11 +30,9 @@ const Navbar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <NavbarMenu label={'Home'} address={'/'}/>
-          <NavbarMenu label={'About'}
-          address={'/about'}/>
-          <NavbarMenu label={'Service'}
-          address={'/service'}/>
+          <NavbarMenu label={"Home"} address={"/"} />
+          <NavbarMenu label={"About"} address={"/about"} />
+          <NavbarMenu label={"Service"} address={"/service"} />
         </ul>
       </div>
       <div className="flex-none gap-2">
@@ -40,30 +46,37 @@ const Navbar = () => {
             className="btn btn-ghost btn-circle avatar"
             onClick={handleToggle}
           >
-            <div className="w-10 rounded-full">
+            <div
+              className="hidden md:block  w-10 h-10"
+              title={user?.displayName}
+            >
               <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                className="rounded-full w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+                alt="Profile"
+                src={user && user?.photoURL ? user?.photoURL : profileImage}
               />
             </div>
           </div>
           {toggleDropDown && (
             <ul
               tabIndex={0}
-              className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 border z-50"
+              className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52 border z-50 space-y-2"
             >
-              <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
+              <NavbarMenu label={"Home"} address={"/"} />
+              {user ? (
+                <>
+                  <NavbarMenu label={"Dashboard"} address={"/dashboard"} />
+                  <div className="btn btn-ghost btn-sm transition-colors duration-300 transform hover:bg-gray-300 rounded-full  hover:text-sky-400">
+                    <button onClick={handleLogOut}>Logout</button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <NavbarMenu label={"Sign In"} address={"/signin"} />
+                  <NavbarMenu label={"Sign Up"} address={"/signup"} />
+                </>
+              )}
             </ul>
           )}
         </div>

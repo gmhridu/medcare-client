@@ -36,7 +36,7 @@ const AuthProvider = ({ children }) => {
 
   const logOut = () => {
     setLoading(true)
-    return signOut()
+    return signOut(auth)
   }
 
   const updateUserProfile = (name, photo) => {
@@ -46,18 +46,25 @@ const AuthProvider = ({ children }) => {
     })
   }
 
-  const handleSaveUser = async(user) => {
+  const handleSaveUser = async (user) => {
     try {
       const { uid, email, displayName, photoURL } = user;
-      await axiosCommon.post(`/save-user`, user)
-      toast.success('User saved successfully')
+      console.log("Saving user:", { uid, email, displayName, photoURL });
+      await axiosCommon.post(`/save-user`, {
+        uid,
+        email,
+        displayName,
+        photoURL,
+      });
     } catch (err) {
-      console.error(err)
+      console.error("Error saving user:", err);
     }
-  }
+  };
+
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async(currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      console.log(currentUser)
       setUser(currentUser)
       if (currentUser) {
         await handleSaveUser(currentUser)
@@ -72,13 +79,14 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     user,
     loading,
+    setLoading,
     createUser,
     signIn,
     signInWithGoogle,
     resetPassword,
     logOut,
     updateUserProfile,
-  }
+  };
   return (
     <AuthContext.Provider value={authInfo}>
       {children}
