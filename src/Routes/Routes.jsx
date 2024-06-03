@@ -1,4 +1,5 @@
 import Main from "@/Layouts/Main";
+import AddCamp from "@/pages/AddCamp/AddCamp";
 import SignIn from "@/pages/Authentication/SignIn/SignIn";
 import Signup from "@/pages/Authentication/Signup/Signup";
 import Home from "@/pages/Home/Home/Home"
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home/>, 
+      },
+      {
+        path: '/add-camp',
+        element: <AddCamp/>,
       }
     ],
   },

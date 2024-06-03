@@ -26,3 +26,43 @@ export const ImageBB = async (imageFile) => {
     throw error;
   }
 }
+
+// Helper function for uploading a  images to Cloudinary
+const uploadImageToCloudinary = async (file) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "gmhridu");
+
+    const response = await axios.post(
+      `https://api.cloudinary.com/v1_1/dyq0ij1yk/image/upload`,
+      formData,
+      {
+        onUploadProgress: (progressEvent) => {
+          const progress = Math.round(
+            (progressEvent.loaded / (progressEvent.total || 0)) * 100
+          );
+        },
+        cancelToken: axios.CancelToken.source().token,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error uploading image to Cloudinary:", error);
+    return null;
+  }
+};
+
+// Function to handle image upload
+export const ImageUpload = async (acceptedFiles) => {
+  try {
+    const uploadPromises = acceptedFiles?.map((file) =>
+      uploadImageToCloudinary(file.File)
+    );
+    const results = await Promise.all(uploadPromises);
+    return results;
+  } catch (err) {
+    console.log("Error during image upload:", err?.message);
+    return null;
+  }
+};

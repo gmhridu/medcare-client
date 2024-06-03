@@ -1,0 +1,223 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "General Health"
+    },
+    {
+      "id": "2",
+      "name": "Dental Care"
+    },
+    {
+      "id": "3",
+      "name": "Eye Care"
+    },
+    {
+      "id": "4",
+      "name": "Pediatrics"
+    },
+    {
+      "id": "5",
+      "name": "Cardiology"
+    }
+  ],
+  "popularCamps": [
+    {
+      "campId": "1",
+      "campName": "Heart Health Awareness",
+      "image": "https://example.com/images/heart-health.jpg",
+      "campFees": 100,
+      "dateTime": "2024-06-15T09:00:00Z",
+      "location": "City Hospital, Downtown",
+      "healthcareProfessional": "Dr. John Doe",
+      "participantCount": 120,
+      "rating": 4.8,
+      "category": "Cardiology",
+      "description": "A camp focused on heart health and prevention of cardiovascular diseases."
+    },
+    {
+      "campId": "2",
+      "campName": "Diabetes Management Camp",
+      "image": "https://example.com/images/diabetes-management.jpg",
+      "campFees": 150,
+      "dateTime": "2024-06-20T10:00:00Z",
+      "location": "Health Center, Uptown",
+      "healthcareProfessional": "Dr. Jane Smith",
+      "participantCount": 95,
+      "rating": 4.6,
+      "category": "General Health",
+      "description": "Learn how to manage diabetes effectively through diet and lifestyle changes."
+    },
+    {
+      "campId": "3",
+      "campName": "Mental Wellness Workshop",
+      "image": "https://example.com/images/mental-wellness.jpg",
+      "campFees": 80,
+      "dateTime": "2024-07-05T14:00:00Z",
+      "location": "Community Center, West End",
+      "healthcareProfessional": "Dr. Emily White",
+      "participantCount": 85,
+      "rating": 4.7,
+      "category": "General Health",
+      "description": "Workshops and activities to improve mental health and well-being."
+    },
+    {
+      "campId": "4",
+      "campName": "Nutrition and Diet Camp",
+      "image": "https://example.com/images/nutrition-diet.jpg",
+      "campFees": 120,
+      "dateTime": "2024-06-25T11:00:00Z",
+      "location": "Wellness Center, East Side",
+      "healthcareProfessional": "Dr. Michael Brown",
+      "participantCount": 70,
+      "rating": 4.5,
+      "category": "General Health",
+      "description": "Guidance on proper nutrition and diet for a healthy lifestyle."
+    },
+    {
+      "campId": "5",
+      "campName": "Child Health and Immunization",
+      "image": "https://example.com/images/child-health.jpg",
+      "campFees": 50,
+      "dateTime": "2024-06-30T09:00:00Z",
+      "location": "Pediatric Hospital, Midtown",
+      "healthcareProfessional": "Dr. Sarah Green",
+      "participantCount": 65,
+      "rating": 4.9,
+      "category": "Pediatrics",
+      "description": "Immunization and health check-ups for children."
+    },
+    {
+      "campId": "6",
+      "campName": "Yoga and Meditation Retreat",
+      "image": "https://example.com/images/yoga-meditation.jpg",
+      "campFees": 200,
+      "dateTime": "2024-07-10T08:00:00Z",
+      "location": "Retreat Center, Hillside",
+      "healthcareProfessional": "Guru Anand",
+      "participantCount": 50,
+      "rating": 4.9,
+      "category": "General Health",
+      "description": "A retreat to practice yoga and meditation for mental peace and physical fitness."
+    }
+  ],
+  "upcomingCamps": [
+    {
+      "campId": "7",
+      "campName": "Eye Care and Vision Check",
+      "image": "https://example.com/images/eye-care.jpg",
+      "campFees": 90,
+      "dateTime": "2024-08-01T10:00:00Z",
+      "location": "Vision Center, Downtown",
+      "healthcareProfessional": "Dr. Robert Clark",
+      "participantCount": 30,
+      "rating": 4.3,
+      "category": "Eye Care",
+      "description": "Comprehensive eye care and vision check-up camp."
+    },
+    {
+      "campId": "8",
+      "campName": "Women's Health and Wellness",
+      "image": "https://example.com/images/womens-health.jpg",
+      "campFees": 110,
+      "dateTime": "2024-08-10T09:00:00Z",
+      "location": "Women's Clinic, Uptown",
+      "healthcareProfessional": "Dr. Linda Taylor",
+      "participantCount": 45,
+      "rating": 4.8,
+      "category": "General Health",
+      "description": "Focused on women's health issues and wellness tips."
+    },
+    {
+      "campId": "9",
+      "campName": "Dental Hygiene Camp",
+      "image": "https://example.com/images/dental-hygiene.jpg",
+      "campFees": 75,
+      "dateTime": "2024-08-15T11:00:00Z",
+      "location": "Dental Care Center, West Side",
+      "healthcareProfessional": "Dr. Richard Lee",
+      "participantCount": 40,
+      "rating": 4.6,
+      "category": "Dental Care",
+      "description": "Promoting dental hygiene and oral care practices."
+    },
+    {
+      "campId": "10",
+      "campName": "Advanced Cardiac Life Support",
+      "image": "https://example.com/images/acls.jpg",
+      "campFees": 130,
+      "dateTime": "2024-08-20T09:00:00Z",
+      "location": "Heart Institute, Midtown",
+      "healthcareProfessional": "Dr. Anna Brown",
+      "participantCount": 55,
+      "rating": 4.9,
+      "category": "Cardiology",
+      "description": "Training on advanced cardiac life support techniques."
+    },
+    {
+      "campId": "11",
+      "campName": "Senior Health Check-up",
+      "image": "https://example.com/images/senior-health.jpg",
+      "campFees": 60,
+      "dateTime": "2024-09-01T08:00:00Z",
+      "location": "Community Health Center, Downtown",
+      "healthcareProfessional": "Dr. Alice Johnson",
+      "participantCount": 35,
+      "rating": 4.7,
+      "category": "General Health",
+      "description": "Comprehensive health check-up for seniors."
+    },
+    {
+      "campId": "12",
+      "campName": "Childhood Nutrition Camp",
+      "image": "https://example.com/images/child-nutrition.jpg",
+      "campFees": 70,
+      "dateTime": "2024-09-05T10:00:00Z",
+      "location": "Children's Hospital, Uptown",
+      "healthcareProfessional": "Dr. Mark Spencer",
+      "participantCount": 25,
+      "rating": 4.8,
+      "category": "Pediatrics",
+      "description": "Nutritional guidance and healthy eating habits for children."
+    },
+    {
+      "campId": "13",
+      "campName": "Vision Therapy Camp",
+      "image": "https://example.com/images/vision-therapy.jpg",
+      "campFees": 85,
+      "dateTime": "2024-09-10T09:00:00Z",
+      "location": "Eye Care Clinic, West End",
+      "healthcareProfessional": "Dr. Patricia Lee",
+      "participantCount": 20,
+      "rating": 4.5,
+      "category": "Eye Care",
+      "description": "Therapy sessions to improve vision and eye health."
+    },
+    {
+      "campId": "14",
+      "campName": "Cardiac Rehabilitation Camp",
+      "image": "https://example.com/images/cardiac-rehab.jpg",
+      "campFees": 140,
+      "dateTime": "2024-09-15T08:00:00Z",
+      "location": "Cardiac Rehab Center, East Side",
+      "healthcareProfessional": "Dr. Steven King",
+      "participantCount": 50,
+      "rating": 4.8,
+      "category": "Cardiology",
+      "description": "Rehabilitation for patients recovering from cardiac events."
+    },
+    {
+      "campId": "15",
+      "campName": "Oral Cancer Screening",
+      "image": "https://example.com/images/oral-cancer-screening.jpg",
+      "campFees": 95,
+      "dateTime": "2024-09-20T10:00:00Z",
+      "location": "Cancer Center, Midtown",
+      "healthcareProfessional": "Dr. Nancy Davis",
+      "participantCount": 45,
+      "rating": 4.7,
+      "category": "Dental Care",
+      "description": "Screening and prevention tips for oral cancer."
+    }
+  ]
+}

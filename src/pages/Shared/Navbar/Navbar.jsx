@@ -26,13 +26,16 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">MedCare</a>
+        <Link to={"/"} className="btn btn-ghost text-xl">
+          MedCare
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <NavbarMenu label={"Home"} address={"/"} />
           <NavbarMenu label={"About"} address={"/about"} />
           <NavbarMenu label={"Service"} address={"/service"} />
+          <NavbarMenu label={"Add Camp"} address={"/add-camp"} />
         </ul>
       </div>
       <div className="flex-none gap-2">
