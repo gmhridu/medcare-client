@@ -11,7 +11,7 @@ const CategoryBox = ({ label, title }) => {
     const currentQuery = { category: label };
 
     const url = queryString.stringifyUrl({
-      url: "/",
+      url: "/our-camps/",
       query: currentQuery,
     });
     navigate(url);

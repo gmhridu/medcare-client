@@ -13,7 +13,6 @@ const Home = () => {
       <OurVision />
       <AboutUs />
       <OurPrincipals />
-      <Categories />
       <CampsCard/>
     </div>
   );
