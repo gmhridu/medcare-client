@@ -1,5 +1,7 @@
+const withMT = require('@material-tailwind/react/utils/withMT')
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+module.exports = withMT({
   darkMode: ["class"],
   content: [
     "./pages/**/*.{js,jsx}",
@@ -85,4 +87,5 @@ module.exports = {
     require("flowbite/plugin"),
     require("daisyui"),
   ],
-};
+}
+);

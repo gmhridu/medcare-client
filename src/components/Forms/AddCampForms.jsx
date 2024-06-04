@@ -26,7 +26,7 @@ const AddCampForms = ({
                 Name
               </label>
               <input
-                className="w-full px-4 py-3 text-gray-800 border border-sky-300 focus:outline-sky-500 rounded-md"
+                className="w-full px-4 py-3 text-gray-800 border border-[#4CBDF8] focus:outline-[#0EA5E9] rounded-md"
                 name="name"
                 id="name"
                 type="text"
@@ -41,7 +41,7 @@ const AddCampForms = ({
               </label>
               <select
                 required
-                className="w-full px-4 py-3 border-sky-300 focus:outline-sky-500 rounded-md"
+                className="w-full px-4 py-3 border-[#4CBDF8] focus:outline-[#0EA5E9]  rounded-md"
                 name="category"
               >
                 {categories?.map((category) => (
@@ -71,7 +71,7 @@ const AddCampForms = ({
                 Location
               </label>
               <input
-                className="w-full px-4 py-3 text-gray-800 border border-sky-300 focus:outline-sky-500 rounded-md"
+                className="w-full px-4 py-3 text-gray-800 border border-[#4CBDF8] focus:outline-[#0EA5E9]  rounded-md"
                 name="location"
                 id="location"
                 type="text"
@@ -93,7 +93,7 @@ const AddCampForms = ({
                   Fees
                 </label>
                 <input
-                  className="w-full px-4 py-3 text-gray-800 border border-sky-300 focus:outline-sky-500 rounded-md"
+                  className="w-full px-4 py-3 text-gray-800 border border-[#4CBDF8] focus:outline-[#0EA5E9] rounded-md"
                   name="fees"
                   id="fees"
                   type="number"
@@ -110,7 +110,7 @@ const AddCampForms = ({
                   Professor Name
                 </label>
                 <input
-                  className="w-full px-4 py-3 text-gray-800 border border-sky-300 focus:outline-sky-500 rounded-md"
+                  className="w-full px-4 py-3 text-gray-800 border border-[#4CBDF8] focus:outline-[#0EA5E9] rounded-md"
                   name="healthcareProfessional"
                   id="healthcareProfessional"
                   type="text"
@@ -129,7 +129,7 @@ const AddCampForms = ({
                   Participant Count
                 </label>
                 <input
-                  className="w-full px-4 py-3 text-gray-800 border border-sky-300 focus:outline-sky-500 rounded-md"
+                  className="w-full px-4 py-3 text-gray-800 border border-[#4CBDF8] focus:outline-[#0EA5E9]  rounded-md"
                   name="participantCount"
                   id="participantCount"
                   type="number"
@@ -143,7 +143,7 @@ const AddCampForms = ({
                   Rating
                 </label>
                 <input
-                  className="w-full px-4 py-3 text-gray-800 border border-sky-300 focus:outline-sky-500 rounded-md"
+                  className="w-full px-4 py-3 text-gray-800 border border-[#4CBDF8] focus:outline-[#0EA5E9]  rounded-md"
                   name="rating"
                   id="rating"
                   defaultValue={0}
@@ -163,7 +163,7 @@ const AddCampForms = ({
 
               <textarea
                 id="description"
-                className="block rounded-md focus:rose-300 w-full h-32 px-4 py-3 text-gray-800 border border-sky-300 focus:outline-sky-500"
+                className="block rounded-md focus:rose-300 w-full h-32 px-4 py-3 text-gray-800 border border-[#4CBDF8] focus:outline-[#0EA5E9]"
                 name="description"
               ></textarea>
             </div>

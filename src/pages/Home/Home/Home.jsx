@@ -4,6 +4,7 @@ import OurVision from '../OurVision/OurVision';
 import AboutUs from '../AboutUs/AboutUs';
 import OurPrincipals from '../OurPrincipals/OurPrincipals';
 import Categories from '../Categories/Categories';
+import CampsCard from '../CampsCard/CampsCard';
 
 const Home = () => {
   return (
@@ -12,7 +13,8 @@ const Home = () => {
       <OurVision />
       <AboutUs />
       <OurPrincipals />
-      <Categories/>
+      <Categories />
+      <CampsCard/>
     </div>
   );
 };
