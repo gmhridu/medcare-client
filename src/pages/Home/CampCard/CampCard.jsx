@@ -12,28 +12,31 @@ import { AiOutlineDollar } from "react-icons/ai";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CampCard = ({ camp }) => {
+const CampCard = ({ camp, isLoading }) => {
   const imageUrl = Array?.isArray(camp?.images)
     ? camp?.images[0]?.secure_url
     : camp?.images;
-  
+
   const date = new Date(camp?.dateTime);
   const formattedDate = date.toLocaleDateString("en-US", {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'long',
+    weekday: "short",
+    day: "numeric",
+    month: "long",
   });
-
 
   return (
     <Link to={`/camp/${camp?._id}`}>
       <div className="h-96">
         <MaterialCard className="mt-6 w-full h-full">
-          <CardHeader color="blue-gray" className="relative h-56">
+          <CardHeader
+            color="blue-gray"
+            className="relative h-52 overflow-hidden"
+          >
             <img
               src={imageUrl}
               alt="card-image"
               className="w-full h-full object-cover"
+              style={{ height: "100%", width: "100%", objectFit: "cover" }}
             />
           </CardHeader>
           <CardBody>

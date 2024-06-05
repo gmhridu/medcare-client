@@ -1,13 +1,12 @@
 import React from 'react';
 import Categories from '../Home/Categories/Categories';
 import { useSearchParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import useAxiosCommon from '@/Hooks/useAxiosCommon';
 import CampCard from '../Home/CampCard/CampCard';
 import Heading from '../Shared/Heading';
+import useCamps from '@/Hooks/useCamps';
+import Loader from '../Shared/Loader/Loader';
 
 const OurCamps = () => {
-  const axiosCommon = useAxiosCommon();
   const [params, setParams] = useSearchParams();
 
   const category = params.get("category");
@@ -18,15 +17,11 @@ const OurCamps = () => {
     isFetched,
     isPending,
     isSuccess,
-  } = useQuery({
-    queryKey: ["camps", category],
-    queryFn: async () => {
-      const { data } = await axiosCommon.get(`/camps?category=${category}`);
-      return data;
-    },
-  });
+  } = useCamps(category)
 
   console.log(camps)
+
+  if(isLoading || isPending) return <Loader/>
 
   if (isFetched || isSuccess) {
     return (
