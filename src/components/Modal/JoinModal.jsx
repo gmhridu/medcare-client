@@ -1,7 +1,16 @@
 import useAuth from '@/Hooks/useAuth';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
+import { Elements } from '@stripe/react-stripe-js';
 import { format } from 'date-fns';
 import React, { Fragment } from 'react';
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from '../Forms/CheckoutForm/CheckoutForm';
+
+
+
+const stripePromise = loadStripe(
+  `${import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY}`
+);
 
 const JoinModal = ({ closeModal, isOpen, campInfo }) => {
   const {user} = useAuth()
@@ -218,12 +227,9 @@ return (
                 </div>
               </form>
 
-              {/* <Elements stripe={stripePromise}>
-    <CheckoutForm
-      closeModal={closeModal}
-      bookingInfo={bookingInfo}
-    />
-  </Elements> */}
+              <Elements stripe={stripePromise}>
+                <CheckoutForm closeModal={closeModal} campInfo={campInfo} />
+              </Elements>
             </DialogPanel>
           </TransitionChild>
         </div>

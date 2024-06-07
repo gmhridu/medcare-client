@@ -57,7 +57,7 @@ const CampDetails = () => {
                 gap-2
               "
                   >
-                    <div>Organize by {camp?.organizer?.name}</div>
+                    <div>Organized by {camp?.organizer?.name}</div>
 
                     <img
                       className="rounded-full object-cover"
@@ -97,7 +97,6 @@ const CampDetails = () => {
               </div>
 
               <div className="md:col-span-3 order-first md:order-last mb-10">
-
                 <CampReservation camp={camp} />
               </div>
             </div>
