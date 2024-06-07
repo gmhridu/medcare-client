@@ -7,6 +7,7 @@ import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import Pagination from "@mui/material/Pagination";
 import Loader from "@/pages/Shared/Loader/Loader";
 import CardSkeleton from "@/pages/Shared/CardSkeleton/CardSkeleton";
+import useCamps from "@/Hooks/useCamps";
 
 const CampsCard = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,7 +16,7 @@ const CampsCard = () => {
   const isMediumScreen = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
   const isLargeScreen = useMediaQuery({ minWidth: 1024, maxWidth: 1279 });
 
-  let itemsPerPage = 4;
+  let itemsPerPage = 8;
 
   if (isSmallScreen) {
     itemsPerPage = 6;
@@ -46,10 +47,9 @@ const CampsCard = () => {
   };
 
   const pageCount = Math.ceil(count / itemsPerPage);
-  const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === pageCount;
 
   console.log(camps);
+  
 
   if (isLoading || isFetching || isPending || showSkeleton) {
     return (
@@ -78,7 +78,7 @@ const CampsCard = () => {
         {camps.length > 0 ? (
           <div>
             <div className="pt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-              {camps.map((camp) => (
+              {camps?.map((camp) => (
                 <CampCard key={camp._id} camp={camp} />
               ))}
             </div>
@@ -99,7 +99,7 @@ const CampsCard = () => {
                   "& .MuiPaginationItem-root.Mui-selected": {
                     backgroundColor: "#4CBDF8",
                     color: "#fff",
-                    border:"none",
+                    border: "none",
                   },
                 }}
               />

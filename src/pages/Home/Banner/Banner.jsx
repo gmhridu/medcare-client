@@ -21,7 +21,7 @@ const Banner = () => {
       infiniteLoop
       showStatus={false}
     >
-      <div className="md:h-96 lg:h-[450px] xl:h-[550px] relative">
+      <div className="md:h-96 lg:h-[450px] xl:h-[550px] h-full relative">
         <img src={img1} className="h-full w-full" alt="Camping 1" />
         <div className="overlay flex flex-col">
           <p className="message">"Renew Your Spirit in Nature"</p>
@@ -30,7 +30,7 @@ const Banner = () => {
           </button>
         </div>
       </div>
-      <div className="md:h-96 lg:h-[450px] xl:h-[550px] relative">
+      <div className="md:h-96 lg:h-[450px] xl:h-[550px] h-full relative">
         <img src={img2} className="h-full w-full" alt="Camping 2" />
         <div className="overlay flex flex-col">
           <p className="message">"Healing Begins Outdoors"</p>
@@ -39,7 +39,7 @@ const Banner = () => {
           </button>
         </div>
       </div>
-      <div className="md:h-96 lg:h-[450px] xl:h-[550px] relative">
+      <div className="md:h-96 lg:h-[450px] xl:h-[550px] h-full relative">
         <img src={img3} className="h-full w-full" alt="Camping 3" />
         <div className="overlay flex flex-col">
           <p className="message">"Discover Health in the Wilderness"</p>
@@ -48,7 +48,7 @@ const Banner = () => {
           </button>
         </div>
       </div>
-      <div className="md:h-96 lg:h-[450px] xl:h-[550px] relative">
+      <div className="md:h-96 lg:h-[450px] xl:h-[550px] h-full relative">
         <img src={img4} className="h-full w-full" alt="Camping 4" />
         <div className="overlay flex flex-col">
           <p className="message">"Experience Nature's Healing Power"</p>
@@ -57,7 +57,7 @@ const Banner = () => {
           </button>
         </div>
       </div>
-      <div className="md:h-96 lg:h-[450px] xl:h-[550px] relative">
+      <div className="md:h-96 lg:h-[450px] xl:h-[550px] h-full  relative">
         <img src={img5} className="h-full w-full" alt="Camping 5" />
         <div className="overlay flex flex-col">
           <p className="message">"Join Us for a Healing Journey"</p>

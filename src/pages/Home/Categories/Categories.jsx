@@ -5,7 +5,7 @@ import React from 'react';
 const Categories = () => {
   return (
     <div className='container mx-auto'>
-      <div className="pt-4 flex items-center justify-between overflow-x-auto">
+      <div className="pt-5 flex items-center justify-between overflow-x-auto">
         {categories?.map((camp, index) => (
           <CategoryBox key={index} label={camp?.label} title={camp?.title} />
         ))}

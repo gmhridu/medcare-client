@@ -7,13 +7,10 @@ const useCampsPagination = (page, size) => {
   return useQuery({
     queryKey: ["camps", page, size],
     queryFn: async () => {
-      const { data: camps } = await axiosCommon.get("/camps/pagination", {
+      const { data } = await axiosCommon.get("/camps/pagination", {
         params: { page, size },
       });
-      const {
-        data: { count },
-      } = await axiosCommon.get("/camps/counts");
-      return { camps, count };
+      return data;
     },
     keepPreviousData: true,
     staleTime: 5 * 60 * 1000,
