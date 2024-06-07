@@ -2,6 +2,7 @@ import Main from "@/Layouts/Main";
 import AddCamp from "@/pages/AddCamp/AddCamp";
 import SignIn from "@/pages/Authentication/SignIn/SignIn";
 import Signup from "@/pages/Authentication/Signup/Signup";
+import CampDetails from "@/pages/CampDetails/CampDetails";
 import Home from "@/pages/Home/Home/Home"
 import OurCamps from "@/pages/OurCamps/OurCamps";
 import { createBrowserRouter } from "react-router-dom"
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/our-camps",
         element: <OurCamps/>,
+      },
+      {
+        path: "/camp/:id",
+        element: <CampDetails/>,
       },
     ],
   },

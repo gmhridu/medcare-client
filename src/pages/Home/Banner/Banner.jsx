@@ -25,7 +25,7 @@ const Banner = () => {
         <img src={img1} className="h-full w-full" alt="Camping 1" />
         <div className="overlay flex flex-col">
           <p className="message">"Renew Your Spirit in Nature"</p>
-          <button className="btn bg-sky-400 text-white font-medium outline-none border-none hover:bg-sky-800">
+          <button className="btn bg-[#4CBDF8] text-white font-medium outline-none border-none hover:bg-[#075985]">
             Participate Now
           </button>
         </div>
@@ -34,7 +34,7 @@ const Banner = () => {
         <img src={img2} className="h-full w-full" alt="Camping 2" />
         <div className="overlay flex flex-col">
           <p className="message">"Healing Begins Outdoors"</p>
-          <button className="btn bg-sky-400 text-white font-medium outline-none border-none hover:bg-sky-800">
+          <button className="btn bg-[#4CBDF8] text-white font-medium outline-none border-none hover:bg-[#075985]">
             Participate Now
           </button>
         </div>
@@ -43,7 +43,7 @@ const Banner = () => {
         <img src={img3} className="h-full w-full" alt="Camping 3" />
         <div className="overlay flex flex-col">
           <p className="message">"Discover Health in the Wilderness"</p>
-          <button className="btn bg-sky-400 text-white font-medium outline-none border-none hover:bg-sky-800">
+          <button className="btn bg-[#4CBDF8] text-white font-medium outline-none border-none hover:bg-[#075985]">
             Participate Now
           </button>
         </div>
@@ -52,7 +52,7 @@ const Banner = () => {
         <img src={img4} className="h-full w-full" alt="Camping 4" />
         <div className="overlay flex flex-col">
           <p className="message">"Experience Nature's Healing Power"</p>
-          <button className="btn bg-sky-400 text-white font-medium outline-none border-none hover:bg-sky-800">
+          <button className="btn bg-[#4CBDF8] text-white font-medium outline-none border-none hover:bg-[#075985]">
             Participate Now
           </button>
         </div>
@@ -61,7 +61,7 @@ const Banner = () => {
         <img src={img5} className="h-full w-full" alt="Camping 5" />
         <div className="overlay flex flex-col">
           <p className="message">"Join Us for a Healing Journey"</p>
-          <button className="btn bg-sky-400 text-white font-medium outline-none border-none hover:bg-sky-800">
+          <button className="btn bg-[#4CBDF8] text-white font-medium outline-none border-none hover:bg-[#075985]">
             Participate Now
           </button>
         </div>
