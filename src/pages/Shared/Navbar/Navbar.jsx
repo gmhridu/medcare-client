@@ -5,6 +5,7 @@ import useAuth from "@/Hooks/useAuth";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import profileImage from '@/assets/images/placeholder.jpg'
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const {user, logOut} = useAuth()
@@ -19,8 +20,9 @@ const Navbar = () => {
   }
 
   const handleLogOut = () => {
-  logOut()
-    closeToggle()
+    logOut()
+    toast.success('Logout Successfully')
+  closeToggle()
   }
 
   return (
@@ -58,7 +60,7 @@ const Navbar = () => {
                 className="rounded-full w-full h-full object-cover"
                 referrerPolicy="no-referrer"
                 alt="Profile"
-                src={user && user?.photoURL ? user?.photoURL : profileImage}
+                src={user?.photoURL ? user?.photoURL : profileImage}
               />
             </div>
           </div>

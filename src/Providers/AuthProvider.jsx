@@ -11,70 +11,115 @@ const googleProvider = new GoogleAuthProvider()
 const axiosCommon = useAxiosCommon()
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const createUser = (email, password) => {
-    setLoading(true)
-    return createUserWithEmailAndPassword(auth, email, password)
-  }
+    setLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
 
   const signIn = (email, password) => {
-    setLoading(true)
-    return signInWithEmailAndPassword(auth, email, password)
-  }
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
   const signInWithGoogle = () => {
-    setLoading(true)
+    setLoading(true);
     return signInWithPopup(auth, googleProvider);
-  }
+  };
 
-  const resetPassword = email => {
-    setLoading(true)
-    return sendPasswordResetEmail(auth, email)
-  }
+  const resetPassword = (email) => {
+    setLoading(true);
+    return sendPasswordResetEmail(auth, email);
+  };
 
-  const logOut = () => {
-    setLoading(true)
-    return signOut(auth)
-  }
+  const logOut = async () => {
+    setLoading(true);
+    await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
+      withCredentials: true,
+    });
+    return signOut(auth);
+  };
 
   const updateUserProfile = (name, photo) => {
     return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photo,
-    })
-  }
-
-  const handleSaveUser = async (user) => {
-    try {
-      const { uid, email, displayName, photoURL } = user;
-      console.log("Saving user:", { uid, email, displayName, photoURL });
-      await axiosCommon.post(`/save-user`, {
-        uid,
-        email,
-        displayName,
-        photoURL,
-      });
-    } catch (err) {
-      console.error("Error saving user:", err);
-    }
+    });
   };
+
+  // Get token from server
+  const getToken = async (email) => {
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_API_URL}/jwt`,
+      { email },
+      { withCredentials: true }
+    );
+    return data;
+  };
+
+  // const handleSaveUser = async (user) => {
+  //   try {
+  //     const { uid, email, displayName, photoURL, role } = user;
+  //     console.log("Saving user:", { uid, email, displayName, photoURL, role });
+  //     await axiosCommon.post(`/save-user`, {
+  //       uid,
+  //       email,
+  //       displayName,
+  //       photoURL,
+  //       role,
+  //     });
+  //   } catch (err) {
+  //     console.error("Error saving user:", err);
+  //   }
+  // };
+
+ const saveUser = async (currentUser) => {
+   const { email, uid, displayName, photoURL } = currentUser;
+
+
+   const displayNameValue = displayName || "User"; 
+   const photoURLValue = photoURL || "";
+
+   const userData = {
+     email,
+     uid,
+     displayName: displayNameValue,
+     photoURL: photoURLValue,
+     role: "guest",
+     status: "Verified",
+   };
+
+   try {
+     const { data } = await axios.put(
+       `${import.meta.env.VITE_API_URL}/user`,
+       userData
+     );
+     console.log(data);
+     return data;
+   } catch (error) {
+     console.error("Error saving user:", error);
+     toast.error("Error saving user. Please try again later.");
+     return null;
+   }
+ };
 
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      console.log(currentUser)
-      setUser(currentUser)
+      console.log(currentUser);
+      setUser(currentUser);
       if (currentUser) {
-        await handleSaveUser(currentUser)
+        await getToken(currentUser?.email)
+        await saveUser(currentUser)
       }
-      setLoading(false)
-    })
+      setLoading(false);
+    });
     return () => {
-      return unsubscribe()
-    }
-  }, [])
+      return unsubscribe();
+    };
+  }, []);
 
   const authInfo = {
     user,
@@ -88,9 +133,7 @@ const AuthProvider = ({ children }) => {
     updateUserProfile,
   };
   return (
-    <AuthContext.Provider value={authInfo}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
 };
 

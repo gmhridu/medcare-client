@@ -16,6 +16,7 @@ const Signup = () => {
    updateUserProfile,
    loading,
    setLoading,
+   logOut,
  } = useAuth();
 
  const handleShowPassword = () => {
@@ -45,6 +46,7 @@ const Signup = () => {
      await updateUserProfile(name, imageURL);
      reset();
      toast.success("Signup successfully");
+     logOut()
      navigate("/signin");
    } catch (error) {
      console.log(error?.message);

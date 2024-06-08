@@ -46,7 +46,6 @@ const AddCamp = () => {
     const dateTime = dates.endDate;
     const location = form.location.value;
     const healthcareProfessional = form.healthcareProfessional.value;
-    const participantCount = form.participantCount.value;
     const category = form.category.value;
     const description = form.description.value;
     const rating = parseFloat(form.rating.value);
@@ -75,7 +74,6 @@ const AddCamp = () => {
         dateTime,
         location,
         healthcareProfessional,
-        participantCount,
         category,
         description,
         rating,

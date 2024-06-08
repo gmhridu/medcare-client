@@ -120,25 +120,10 @@ const AddCampForms = ({
               </div>
             </div>
 
-            <div className="flex justify-between gap-2">
-              <div className="space-y-1 text-sm">
-                <label
-                  htmlFor="participantCount"
-                  className="block text-gray-600"
-                >
-                  Participant Count
-                </label>
-                <input
-                  className="w-full px-4 py-3 text-gray-800 border border-[#4CBDF8] focus:outline-[#0EA5E9]  rounded-md"
-                  name="participantCount"
-                  id="participantCount"
-                  type="number"
-                  placeholder="254"
-                  required
-                />
-              </div>
+            <div className="">
+              
 
-              <div className="space-y-1 text-sm">
+              <div className="space-y-1 text-sm w-full">
                 <label htmlFor="rating" className="block text-gray-600">
                   Rating
                 </label>
@@ -155,7 +140,6 @@ const AddCampForms = ({
                 />
               </div>
             </div>
-
             <div className="space-y-1 text-sm">
               <label htmlFor="description" className="block text-gray-600">
                 Description
