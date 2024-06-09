@@ -39,22 +39,23 @@ const JoinModal = ({ closeModal, isOpen, campInfo }) => {
     };
 
     try {
-      const {data} = await axiosCommon.post("/join-camp", joinData);
+      const { data } = await axiosCommon.post("/join-camp", joinData);
       if (data?.success) {
         toast.success("Joined Camp Successfully!");
 
         if (checkoutFormRef.current) {
-          const stripeResponse = await checkoutFormRef.current.handleStripePayment();
+          const stripeResponse =
+            await checkoutFormRef.current.handleStripePayment();
           if (stripeResponse.error) {
             toast.error("Payment failed: " + stripeResponse.error.message);
           } else {
             toast.success("Payment successful!");
-            reset();
-            closeModal();
+            reset(); 
+            closeModal(); 
           }
         }
       } else {
-        console.error(error);
+        console.log('Something is wrong');
       }
     } catch (error) {
       console.error(error);
