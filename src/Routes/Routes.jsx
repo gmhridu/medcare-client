@@ -1,5 +1,5 @@
 import Main from "@/Layouts/Main";
-import AddCamp from "@/pages/AddCamp/AddCamp";
+import AddCamp from "@/pages/DashBoardLayout/Participants/AddCamp/AddCamp";
 import SignIn from "@/pages/Authentication/SignIn/SignIn";
 import Signup from "@/pages/Authentication/Signup/Signup";
 import CampDetails from "@/pages/CampDetails/CampDetails";
@@ -23,16 +23,12 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/add-camp",
-        element: <AddCamp />,
-      },
-      {
         path: "/our-camps",
-        element: <OurCamps/>,
+        element: <OurCamps />,
       },
       {
         path: "/camp/:id",
-        element: <CampDetails/>,
+        element: <CampDetails />,
       },
     ],
   },
@@ -45,31 +41,35 @@ const router = createBrowserRouter([
     element: <SignIn />,
   },
   {
-    path: '/dashboard',
+    path: "/dashboard",
     element: <DashBoardLayout />,
     children: [
       {
         index: true,
-        element: <Statistics/>
+        element: <Statistics />,
       },
       {
-        path: 'payment-history',
-        element: <PaymentHistory/>,
+        path: "add-camp",
+        element: <AddCamp />,
       },
       {
-        path: 'registered-camp',
-        element: <RegisteredCamps/>,
+        path: "payment-history",
+        element: <PaymentHistory />,
       },
       {
-        path: 'manage-camps',
-        element: <ManageCamps/>,
+        path: "registered-camp",
+        element: <RegisteredCamps />,
       },
       {
-        path: 'manage-registered',
-        element: <ManageRegisteredCamps/>,
+        path: "manage-camps",
+        element: <ManageCamps />,
+      },
+      {
+        path: "manage-registered",
+        element: <ManageRegisteredCamps />,
       },
     ],
-  }
+  },
 ]);
 
 export default router;

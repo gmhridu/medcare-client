@@ -37,7 +37,6 @@ const Navbar = () => {
           <NavbarMenu label={"Home"} address={"/"} />
           <NavbarMenu label={"About"} address={"/about"} />
           <NavbarMenu label={"Service"} address={"/service"} />
-          <NavbarMenu label={"Add Camp"} address={"/add-camp"} />
           <NavbarMenu label={"Our Camps"} address={"/our-camps"} />
         </ul>
       </div>

@@ -1,13 +1,17 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useEffect, useState, forwardRef, useImperativeHandle } from "react";
-import useAxiosCommon from "@/Hooks/useAxiosCommon";
+import { useEffect, useState } from "react";
 import "./CheckoutForm.css";
+import useAxiosSecure from "@/Hooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
+import toast from "react-hot-toast";
 
-const CheckoutForm = forwardRef(({ campInfo }, ref) => {
+const CheckoutForm = ({ campInfo, user, joinCampData, Back }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const axiosCommon = useAxiosCommon();
+  const axiosSecure = useAxiosSecure();
   const [clientSecret, setClientSecret] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (campInfo?.fees && campInfo?.fees > 1) {
@@ -15,46 +19,85 @@ const CheckoutForm = forwardRef(({ campInfo }, ref) => {
     }
   }, [campInfo?.fees]);
 
-  const getClientSecret = async (fees) => {
-    const { data } = await axiosCommon.post(`/create-payment-intent`, fees);
-    setClientSecret(data?.clientSecret);
+  const getClientSecret = async (price) => {
+    try {
+      const { data } = await axiosSecure.post(`/create-payment-intent`, price);
+      setClientSecret(data?.clientSecret);
+    } catch (error) {
+      console.error("Error fetching client secret:", error);
+      toast.error("Error fetching client secret");
+    }
   };
 
-  useImperativeHandle(ref, () => ({
-    handleStripePayment: async () => {
-      if (!stripe || !elements) {
-        return { error: { message: "Stripe.js has not loaded yet." } };
-      }
 
-      const card = elements.getElement(CardElement);
-      if (!card) {
-        return { error: { message: "CardElement is not found." } };
-      }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!stripe || !elements) {
+      toast.error("Stripe.js has not loaded yet.");
+      return;
+    }
 
+    const card = elements.getElement(CardElement);
+    if (!card) {
+      toast.error("CardElement not found.");
+      return;
+    }
+
+    try {
       const { error, paymentMethod } = await stripe.createPaymentMethod({
         type: "card",
         card,
       });
 
       if (error) {
-        return { error };
+        console.error("[PaymentMethod Error]", error);
+        toast.error("Payment method creation failed.");
+        return;
       }
 
-      const { paymentIntent, error: confirmError } =
-        await stripe.confirmCardPayment(clientSecret, {
-          payment_method: paymentMethod.id,
-        });
 
-      if (confirmError) {
-        return { error: confirmError };
+      const { id: paymentMethodId } = paymentMethod;
+      const { data: paymentIntent } = await axiosSecure.post("/payments", {
+        paymentMethodId,
+        amount: campInfo.fees,
+        date: format(new Date(), "PP"),
+      });
+
+      if (paymentIntent.error) {
+        toast.error(paymentIntent.error.message);
+        return;
       }
 
-      return { paymentIntent };
-    },
-  }));
+      toast.success("Payment Successful!");
+
+      // Post join camp data
+      const joinCampResponse = await axiosSecure.post(
+        "/join-camp",
+        joinCampData
+      );
+      console.log("Join Camp Response:", joinCampResponse.data);
+
+      if (joinCampResponse.status === 200) {
+        toast.success("Joined Camp Successfully!");
+        navigate("/dashboard/payment-history");
+      } else {
+        toast.error("Failed to join camp.");
+      }
+    } catch (postError) {
+      console.error("Error during payment process:", postError);
+      toast.error("Error during payment process.");
+    }
+  };
+
 
   return (
-    <form className="my-2 pt-2 max-w-lg">
+    <form onSubmit={handleSubmit} className="my-2 pt-2 max-w-lg">
+      <label
+        htmlFor="card-element"
+        className="block text-sm font-medium text-gray-700"
+      >
+        Credit or debit card
+      </label>
       <CardElement
         options={{
           style: {
@@ -71,8 +114,23 @@ const CheckoutForm = forwardRef(({ campInfo }, ref) => {
           },
         }}
       />
+      <div className="flex mt-2 justify-around">
+        <button
+          type="button"
+          className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+          onClick={Back}
+        >
+          Back
+        </button>
+        <button
+          type="submit"
+          className="inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+        >
+          Pay ${campInfo?.fees}
+        </button>
+      </div>
     </form>
   );
-});
+};
 
 export default CheckoutForm;

@@ -2,10 +2,17 @@ import React from 'react';
 import DashBoardMenu from './DashBoardMenu';
 import { LuBadgeDollarSign } from "react-icons/lu";
 import { GiArchiveRegister } from 'react-icons/gi';
+import { TbReportMedical } from "react-icons/tb";
+
 
 const ParticipantMenu = () => {
   return (
     <>
+      <DashBoardMenu
+        icon={TbReportMedical}
+        label={"Add Camp"}
+        address={"add-camp"}
+      />
       <DashBoardMenu
         icon={LuBadgeDollarSign}
         label={"Payment History"}
