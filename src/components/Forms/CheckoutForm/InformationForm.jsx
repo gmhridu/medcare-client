@@ -20,22 +20,7 @@ const InformationForm = ({ campInfo, user, isOpen, closeModal, Next, Back }) => 
     reset,
   } = useForm();
 
-  // const onSubmit = async (data) => {
-  //   const joinData = {
-  //     ...data,
-  //     campId: campInfo?._id,
-  //     userId: user?.uid,
-  //     joinDate: format(new Date(), "PP"),
-  //   };
-
-  //   try {
-  //     const { data } = await axiosSecure.post("/join-camp", joinData);
-  //     return data;
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
+  
   return (
     <form
       onSubmit={handleSubmit((data) => {
@@ -43,6 +28,7 @@ const InformationForm = ({ campInfo, user, isOpen, closeModal, Next, Back }) => 
           ...data,
           campId: campInfo?._id,
           userId: user?.uid,
+          email: user?.email,
           joinDate: format(new Date(), "PP"),
           name: campInfo?.name,
           location: campInfo?.location,

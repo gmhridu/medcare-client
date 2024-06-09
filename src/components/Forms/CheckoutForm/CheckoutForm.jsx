@@ -54,12 +54,15 @@ const CheckoutForm = ({ campInfo, user, joinCampData, Back }) => {
         toast.error("Payment method creation failed.");
         return;
       }
-
-
+     
       const { id: paymentMethodId } = paymentMethod;
       const { data: paymentIntent } = await axiosSecure.post("/payments", {
+        ...campInfo,
+        participantName: joinCampData?.participantName,
+        email: user?.email,
         paymentMethodId,
-        amount: campInfo.fees,
+        amount: campInfo?.fees,
+        status: 'Paid',
         date: format(new Date(), "PP"),
       });
 
