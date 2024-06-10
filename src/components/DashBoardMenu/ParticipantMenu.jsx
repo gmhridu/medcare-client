@@ -9,11 +9,6 @@ const ParticipantMenu = () => {
   return (
     <>
       <DashBoardMenu
-        icon={TbReportMedical}
-        label={"Add Camp"}
-        address={"add-camp"}
-      />
-      <DashBoardMenu
         icon={LuBadgeDollarSign}
         label={"Payment History"}
         address={"payment-history"}

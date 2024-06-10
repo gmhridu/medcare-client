@@ -8,7 +8,6 @@ import toast from 'react-hot-toast';
 
 export const AuthContext = createContext(null)
 const googleProvider = new GoogleAuthProvider()
-const axiosCommon = useAxiosCommon()
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -96,7 +95,6 @@ const AuthProvider = ({ children }) => {
        `${import.meta.env.VITE_API_URL}/user`,
        userData
      );
-     console.log(data);
      return data;
    } catch (error) {
      console.error("Error saving user:", error);

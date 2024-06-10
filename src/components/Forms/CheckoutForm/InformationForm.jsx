@@ -36,6 +36,7 @@ const InformationForm = ({ campInfo, user, isOpen, closeModal, Next, Back }) => 
           healthcareProfessional: campInfo?.healthcareProfessional,
           participantName: user?.displayName,
           participantEmail: user?.email,
+          status: 'pending',
         };
         Next(submitData);
       })}

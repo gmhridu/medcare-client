@@ -24,7 +24,6 @@ const Sidebar = () => {
   };
 
 
-  if (loading) return <Loader />;
   return (
     <>
       {/* Small Screen Navbar */}

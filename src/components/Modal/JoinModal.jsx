@@ -32,7 +32,6 @@ const JoinModal = ({ closeModal, isOpen, campInfo }) => {
   };
 
   const handleNextStep = (data) => {
-    console.log(data);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setJoinCampData(data);
   };

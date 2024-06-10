@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import toast from "react-hot-toast";
 
 const CheckoutForm = ({ campInfo, user, joinCampData, Back }) => {
+  console.log(joinCampData)
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
@@ -62,7 +63,7 @@ const CheckoutForm = ({ campInfo, user, joinCampData, Back }) => {
         email: user?.email,
         paymentMethodId,
         amount: campInfo?.fees,
-        status: 'Paid',
+        status: "Paid",
         date: format(new Date(), "PP"),
       });
 
@@ -76,7 +77,9 @@ const CheckoutForm = ({ campInfo, user, joinCampData, Back }) => {
       // Post join camp data
       const joinCampResponse = await axiosSecure.post(
         "/join-camp",
-        joinCampData
+        {...joinCampData,
+          paymentMethodId,
+        }
       );
       console.log("Join Camp Response:", joinCampResponse.data);
 
