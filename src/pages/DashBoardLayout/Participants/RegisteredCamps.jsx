@@ -12,6 +12,7 @@ const RegisteredCamps = () => {
 
   const { data: camps = [], refetch } = useQuery({
     queryKey: ["camps", user?.email],
+    enabled:!!user?.email,
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/join-camps/${user?.email}`);
       return data;
@@ -32,10 +33,7 @@ const RegisteredCamps = () => {
     },
   });
 
-  // const handleCancelPayment = (paymentMethodId) => {
-  //   console.log(paymentMethodId)
-  //   cancelPaymentMutation.mutate(paymentMethodId);
-  // };
+ 
 
   const handleCancelPayment = async (paymentMethodId) => {
     console.log(paymentMethodId);
