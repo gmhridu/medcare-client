@@ -1,6 +1,5 @@
 import useAuth from '@/Hooks/useAuth';
 import useRole from '@/Hooks/useRole';
-import Loader from '@/pages/Shared/Loader/Loader';
 import React, { useState } from 'react';
 import logo from '/logo.png'
 import { AiOutlineBars } from 'react-icons/ai';
@@ -29,7 +28,7 @@ const Sidebar = () => {
       {/* Small Screen Navbar */}
       <div className="bg-gray-100 text-gray-800 flex justify-between md:hidden">
         <div>
-          <div className="block cursor-pointer p-4 font-bold">
+          <div className="block cursor-pointer p-4 font-bold w-full">
             <Link to="/">
               <img
                 // className='hidden md:block'
@@ -58,13 +57,13 @@ const Sidebar = () => {
       >
         <div>
           <div>
-            <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-rose-100 mx-auto">
+            <div className="w-full hidden md:flex px-4 py-2 rounded-lg justify-center items-center bg-rose-100 mx-auto">
               <Link to="/">
                 <img
                   // className='hidden md:block'
                   src={logo}
                   alt="logo"
-                  width="100"
+                  width="150"
                   height="100"
                 />
               </Link>

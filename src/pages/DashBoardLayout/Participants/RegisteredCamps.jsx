@@ -1,20 +1,21 @@
+import DataTable from "@/components/DashBoardMenu/DataTable";
 import FeedbackForm from "@/components/Forms/FeedbackForm";
 import useAuth from "@/Hooks/useAuth";
 import useAxiosSecure from "@/Hooks/useAxiosSecure";
+import Loader from "@/pages/Shared/Loader/Loader";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
-
 const RegisteredCamps = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
   const [selectedCamp, setSelectedCamp] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data: camps = [], refetch } = useQuery({
+  const { data: camps = [], refetch, isLoading, isPending, isFetching, isFetched, isSuccess } = useQuery({
     queryKey: ["camps", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -36,7 +37,6 @@ const RegisteredCamps = () => {
   });
 
   const handleCancelPayment = async (paymentMethodId) => {
-    console.log(paymentMethodId);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -74,91 +74,72 @@ const RegisteredCamps = () => {
     setSelectedCamp(null);
   };
 
-  return (
-    <>
-      <div className="container mx-auto my-10">
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg border">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3">
-                  Camp Name
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Camp Fees
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Participant Name
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Payment Status
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Confirmation Status
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Cancel Button
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Feedback Button
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {camps.length > 0 ? (
-                camps.map((camp) => (
-                  <tr key={camp?._id}>
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    >
-                      {camp?.name}
-                    </th>
-                    <td className="px-6 py-4">${camp?.fees}</td>
-                    <td className="px-6 py-4">{camp?.participantName}</td>
-                    <td className="px-6 py-4">{camp?.status}</td>
-                    <td className="px-6 py-4">Confirmed</td>
-                    <td className="px-6 py-4">
-                      <button
-                        onClick={() =>
-                          handleCancelPayment(camp?.paymentMethodId)
-                        }
-                      >
-                        Cancel
-                      </button>
-                    </td>
-                    <td className="px-6 py-4">
-                      <button onClick={() => handleFeedbackClick(camp)}>
-                        Feedback
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan="7"
-                    className="px-6 py-4 text-center font-semibold"
-                  >
-                    No Registered Camps Found
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
+  const columns = [
+    { id: "name", label: "Camp Name", align: "left" },
+    {
+      id: "fees",
+      label: "Camp Fees",
+      align: "left",
+      format: (value) => `$${value}`,
+    },
+    { id: "participantName", label: "Participant Name", align: "left" },
+    { id: "status", label: "Payment Status", align: "left" },
+    {
+      id: "confirmation",
+      label: "Confirmation Status",
+      align: "left",
+      format: () => "Confirmed",
+    },
+    {
+      id: "cancel",
+      label: "Cancel Button",
+      align: "left",
+      format: (value, row) => (
+        <button
+          className="hover:underline"
+          onClick={() => handleCancelPayment(row?.paymentMethodId)}
+        >
+          [Cancel]
+        </button>
+      ),
+    },
+    {
+      id: "feedback",
+      label: "Feedback Button",
+      align: "left",
+      format: (value, row) => (
+        <button
+          className="hover:underline"
+          onClick={() => handleFeedbackClick(row)}
+        >
+          [Feedback]
+        </button>
+      ),
+    },
+  ];
 
-      {selectedCamp && (
-        <FeedbackForm
-          camp={selectedCamp}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          onClose={handleCloseFeedback}
+  if (loading || isLoading || isPending || isFetching) return <Loader />
+  
+  if (isFetched || isSuccess) { 
+    return (
+      <>
+        <DataTable
+          columns={columns}
+          data={camps}
+          searchFields={["name", "participantName", "status"]}
         />
-      )}
-    </>
-  );
+  
+        {selectedCamp && (
+          <FeedbackForm
+            camp={selectedCamp}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            onClose={handleCloseFeedback}
+          />
+        )}
+      </>
+    );
+  }
 };
 
 export default RegisteredCamps;

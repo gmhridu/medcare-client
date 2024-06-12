@@ -2,6 +2,7 @@ import AddCampForms from '@/components/Forms/AddCampForms';
 import useAuth from '@/Hooks/useAuth';
 import useAxiosCommon from '@/Hooks/useAxiosCommon';
 import { ImageUpload } from '@/lib/utils';
+import Loader from '@/pages/Shared/Loader/Loader';
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -10,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 const AddCamp = () => {
   const axiosCommon = useAxiosCommon()
   const navigate = useNavigate()
-  const { user } = useAuth()
+  const { user, loading:load } = useAuth()
   const [loading, setLoading] = useState(false)
   const [filesToUpload, setFilesToUpload] = useState([])
  const [dates, setDates] = useState({
@@ -93,6 +94,8 @@ const AddCamp = () => {
     console.log(filesToUpload)
     
   }
+
+  if(load) return <Loader/>
 
   return (
     <div className='container mx-auto'>

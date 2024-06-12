@@ -8,35 +8,15 @@ import UpdateCampModal from "@/components/Modal/UpdateCampModal";
 import useAuth from "@/Hooks/useAuth";
 import useAxiosSecure from "@/Hooks/useAxiosSecure";
 import Loader from "@/pages/Shared/Loader/Loader";
+import DataTable from "@/components/DashBoardMenu/DataTable";
 
 const ManageCamps = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCamp, setSelectedCamp] = useState(null);
-  const [toggleDropDown, setToggleDropDown] = useState(false);
-
-  const handleToggle = () => {
-    setToggleDropDown((isOpen) =>!isOpen);
-  };
-
-  const {
-    data: camps = [],
-    isLoading,
-    isFetching,
-    isPending, 
-    isSuccess,
-    isFetched,
-    refetch,
-  } = useQuery({
-    queryKey: ["camps", user?.email],
-    enabled: !!user?.email,
-    queryFn: async () => {
-      const { data } = await axiosSecure(`/camps/organizer/${user?.email}`);
-      return data;
-    },
-  });
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   const handleEdit = (camp) => {
     setSelectedCamp(camp);
@@ -84,116 +64,107 @@ const ManageCamps = () => {
     });
   };
 
-  if(isLoading || isFetching || isPending) return <Loader/>
+  const {
+    data: camps = [],
+    isLoading,
+    isFetching,
+    isPending,
+    isSuccess,
+    isFetched,
+    refetch,
+  } = useQuery({
+    queryKey: ["camps", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const { data } = await axiosSecure(`/camps/organizer/${user?.email}`);
+      return data;
+    },
+  });
+
+  const columns = [
+    { id: "name", label: "Camp Name", align: "left" },
+    {
+      id: "fees",
+      label: "Camp Fees",
+      align: "left",
+      format: (value) => `$${value}`,
+    },
+    {
+      id: "dateTime",
+      label: "Date & Time",
+      align: "left",
+      format: (value) => format(new Date(value), "PP"),
+    },
+    { id: "location", label: "Location", align: "left" },
+    {
+      id: "healthcareProfessional",
+      label: "Healthcare Professional",
+      align: "left",
+    },
+    {
+      id: "action",
+      label: "Action",
+      align: "left",
+      format: (value, row) => (
+        <div className="relative">
+          <button
+            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            onClick={() =>
+              setActiveDropdown(activeDropdown === row._id ? null : row._id)
+            }
+          >
+            <FaRegEdit className="text-xl" />
+          </button>
+          {activeDropdown === row._id && (
+            <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-1 z-10 cursor-pointer">
+              <div
+                className="hover:bg-gray-100 font-medium"
+                onClick={() => handleEdit(row)}
+              >
+                <button className="block px-4 py-2 text-sm text-gray-700">
+                  Edit
+                </button>
+              </div>
+              <div
+                className="hover:bg-gray-100 font-medium"
+                onClick={() => handleDelete(row._id)}
+              >
+                <button className="block px-4 py-2 text-sm text-gray-700">
+                  Delete
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      ),
+    },
+  ];
+
+  if (loading || isLoading || isFetching || isPending) return <Loader />;
 
   if (isSuccess || isFetched) {
     return (
       <>
         <div className="container mx-auto my-10">
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg border">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th scope="col" className="px-6 py-3">
-                    Camp Name
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Camp Fees
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Date & Time
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Location
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Healthcare Professional
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              {camps.length > 0 ? (
-                <tbody>
-                  {camps?.map((camp) => (
-                    <tr key={camp?._id}>
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        {camp?.name}
-                      </th>
-                      <td className="px-6 py-4">${camp?.fees}</td>
-                      <td className="px-6 py-4">
-                        {format(new Date(camp?.dateTime), "PP")}
-                      </td>
-                      <td className="px-6 py-4">{camp?.location}</td>
-                      <td className="px-6 py-4">
-                        {camp?.healthcareProfessional}
-                      </td>
-                      <td className="px-6 py-4">
-                        <div
-                          className="dropdown relative"
-                          tabIndex={0}
-                          onClick={handleToggle}
-                        >
-                          <button
-                            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                          >
-                            <FaRegEdit className="text-xl" />
-                          </button>
-                          {toggleDropDown && (
-                            <ul className="mt-3 shadow menu menu-sm dropdown-content bg-white p-2 border z-50 -right-10 top-4">
-                              <div className="flex gap-5">
-                                <div className="">
-                                  <button
-                                    onClick={() => handleEdit(camp)}
-                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                  >
-                                    Edit
-                                  </button>
-                                </div>
-                                <div className="">
-                                  <button
-                                    onClick={() => handleDelete(camp?._id)}
-                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                  >
-                                    Delete
-                                  </button>
-                                </div>
-                              </div>
-                            </ul>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              ) : (
-                <tbody>
-                  <tr>
-                    <td
-                      colSpan="7"
-                      className="px-6 py-4 text-center font-semibold"
-                    >
-                      No Registered Camps Found
-                    </td>
-                  </tr>
-                </tbody>
-              )}
-            </table>
-          </div>
+          <DataTable
+            columns={columns}
+            data={camps}
+            searchFields={["name", "location", "healthcareProfessional"]}
+          />
         </div>
-        <UpdateCampModal
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          selectedCamp={selectedCamp}
-          onUpdate={refetch}
-        />
+        {selectedCamp && (
+          <UpdateCampModal
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            selectedCamp={selectedCamp}
+            onUpdate={refetch}
+          />
+        )}
       </>
     );
-   }
+  }
+
+  return null;
 };
 
 export default ManageCamps;
