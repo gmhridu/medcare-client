@@ -12,6 +12,9 @@ import RegisteredCamps from "@/pages/DashBoardLayout/Participants/RegisteredCamp
 import Home from "@/pages/Home/Home/Home"
 import OurCamps from "@/pages/OurCamps/OurCamps";
 import { createBrowserRouter } from "react-router-dom"
+import PrivateRoute from "./PrivateRoute";
+import ParticipantRoutes from "./ParticipantRoutes";
+import OrganizerRoute from "./OrganizerRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +31,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/camp/:id",
-        element: <CampDetails />,
+        element: (
+          <PrivateRoute>
+            <CampDetails />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -42,31 +49,69 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashBoardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashBoardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,
-        element: <Statistics />,
+        element: (
+          <PrivateRoute>
+            <Statistics />
+          </PrivateRoute>
+        ),
       },
       {
         path: "add-camp",
-        element: <AddCamp />,
+        element: (
+          <PrivateRoute>
+            <ParticipantRoutes>
+              <AddCamp />
+            </ParticipantRoutes>
+          </PrivateRoute>
+        ),
       },
       {
         path: "payment-history",
-        element: <PaymentHistory />,
+        element: (
+          <PrivateRoute>
+            <ParticipantRoutes>
+              <PaymentHistory />
+            </ParticipantRoutes>
+          </PrivateRoute>
+        ),
       },
       {
         path: "registered-camp",
-        element: <RegisteredCamps />,
+        element: (
+          <PrivateRoute>
+            <ParticipantRoutes>
+              <RegisteredCamps />
+            </ParticipantRoutes>
+          </PrivateRoute>
+        ),
       },
       {
         path: "manage-camps",
-        element: <ManageCamps />,
+        element: (
+          <PrivateRoute>
+            <OrganizerRoute>
+              <ManageCamps />
+            </OrganizerRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "manage-registered",
-        element: <ManageRegisteredCamps />,
+        element: (
+          <PrivateRoute>
+            <OrganizerRoute>
+              <ManageRegisteredCamps />
+            </OrganizerRoute>
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -2,12 +2,15 @@ import useAuth from '@/Hooks/useAuth';
 import { RefreshCcw } from 'lucide-react';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { signIn, signInWithGoogle, resetPassword, loading, setLoading } = useAuth()
+  const { signIn, signInWithGoogle,  loading, setLoading } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const from = location?.state?.from?.pathname || "/";
   
 
   const handleShowPassword = () => {
@@ -23,7 +26,7 @@ const SignIn = () => {
     try {
       setLoading(true)
       await signIn(email, password)
-      navigate('/')
+            navigate(from, { replace: true });
       toast.success('Sign In Successfully')
     } catch (error) {
       console.log(err?.message);
@@ -36,7 +39,7 @@ const SignIn = () => {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle();
-      navigate("/");
+            navigate(from, { replace: true });
       toast.success("Sign In Successfully");
     } catch (error) {
       console.log(err?.message);
