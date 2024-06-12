@@ -7,6 +7,7 @@ import Categories from '../Categories/Categories';
 import CampsCard from '../CampsCard/CampsCard';
 import useAuth from '@/Hooks/useAuth';
 import Loader from '@/pages/Shared/Loader/Loader';
+import Testimonial from '../Testimonial/Testimonial';
 
 const Home = () => {
   const { loading } = useAuth()
@@ -18,7 +19,8 @@ const Home = () => {
       <OurVision />
       <AboutUs />
       <OurPrincipals />
-      <CampsCard/>
+      <CampsCard />
+      <Testimonial/>
     </div>
   );
 };

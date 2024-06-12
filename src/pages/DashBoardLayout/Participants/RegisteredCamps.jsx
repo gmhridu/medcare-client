@@ -92,7 +92,7 @@ const RegisteredCamps = () => {
     },
     {
       id: "cancel",
-      label: "Cancel Button",
+      label: "Cancel",
       align: "left",
       format: (value, row) => (
         <button
@@ -105,12 +105,13 @@ const RegisteredCamps = () => {
     },
     {
       id: "feedback",
-      label: "Feedback Button",
+      label: "Feedback",
       align: "left",
       format: (value, row) => (
         <button
-          className="hover:underline"
+          className="hover:underline disabled:cursor-not-allowed"
           onClick={() => handleFeedbackClick(row)}
+          disabled={row?.rating || row?.ratingText}
         >
           [Feedback]
         </button>

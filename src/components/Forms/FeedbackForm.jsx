@@ -12,15 +12,15 @@ import toast from "react-hot-toast";
 const FeedbackForm = ({ camp, onClose, isOpen, setIsOpen }) => {
   const { user, loading } = useAuth();
   const [rating, setRating] = useState(camp.rating || 0);
-  const [description, setDescription] = useState(camp.description || "");
+  const [ratingText, setRatingText] = useState(camp.ratingText || "");
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
 
   const rateCampMutation = useMutation({
-    mutationFn: async ({ campId, rating, description }) => {
+    mutationFn: async ({ campId, rating, ratingText }) => {
       const { data } = await axiosSecure.patch(`/join-camp/rate/${campId}`, {
         rating,
-        description,
+        ratingText,
       });
       return data;
     },
@@ -33,9 +33,9 @@ const FeedbackForm = ({ camp, onClose, isOpen, setIsOpen }) => {
     e.preventDefault();
     try {
       await rateCampMutation.mutateAsync({
-        campId: camp._id,
+        campId: camp?._id,
         rating,
-        description,
+        ratingText,
       });
       toast.success("Rated Successfully");
       onClose();
@@ -101,16 +101,16 @@ const FeedbackForm = ({ camp, onClose, isOpen, setIsOpen }) => {
                     <div className="mt-4">
                       <div className="space-y-1 text-sm">
                         <label
-                          htmlFor="description"
+                          htmlFor="ratingText"
                           className="block text-gray-600"
                         >
                           Description
                         </label>
 
                         <textarea
-                          id="description"
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
+                          id="ratingText"
+                          value={ratingText}
+                          onChange={(e) => setRatingText(e.target.value)}
                           className="block rounded-md focus:rose-300 w-full h-32 px-4 py-3 text-gray-800 border border-[#4CBDF8] focus:outline-[#0EA5E9]"
                           name="description"
                         ></textarea>
@@ -120,14 +120,16 @@ const FeedbackForm = ({ camp, onClose, isOpen, setIsOpen }) => {
                       <button
                         type="submit"
                         className={`w-full px-4 py-2 text-white rounded-md focus:outline-none ${
-                          loading ? "bg-[#0EA5E9]" : "bg-[#0EA5E9]"
+                          loading
+                            ? "bg-[#0EA5E9] m-auto"
+                            : "bg-[#0EA5E9] m-auto"
                         }`}
                         disabled={loading}
                       >
                         {loading ? (
                           <RiLoader3Fill className="animate-spin m-auto" />
                         ) : (
-                          "Update Camp"
+                          "Submit"
                         )}
                       </button>
                     </div>

@@ -11,6 +11,8 @@ import { MdDateRange } from "react-icons/md";
 import { AiOutlineDollar } from "react-icons/ai";
 import React from "react";
 import { Link } from "react-router-dom";
+import Rating from "@mui/material/Rating";
+import StarIcon from "@mui/icons-material/Star";
 
 const CampCard = ({ camp, isLoading }) => {
   const imageUrl = Array?.isArray(camp?.images)
@@ -51,6 +53,17 @@ const CampCard = ({ camp, isLoading }) => {
                 camp?.category.charAt(0).toUpperCase() +
                   camp?.category.slice(1)}{" "}
               Specialist
+              <div className="flex items-center gap-x-1">
+                <Rating
+                  name="read-only"
+                  value={camp?.averageRating || "0"}
+                  precision={0.5}
+                  readOnly
+                  emptyIcon={
+                    <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+                  }
+                />
+              </div>
             </Typography>
             <div className="space-y-1">
               <Typography className="flex space-x-3 items-center  text-base text-[#6C6B6B] font-normal">

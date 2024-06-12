@@ -28,15 +28,13 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <Link to={"/"} className="btn btn-ghost text-xl">
+        <Link to={"/"} className="btn btn-ghost text-xl"> 
           MedCare
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <NavbarMenu label={"Home"} address={"/"} />
-          <NavbarMenu label={"About"} address={"/about"} />
-          <NavbarMenu label={"Service"} address={"/service"} />
           <NavbarMenu label={"Our Camps"} address={"/our-camps"} />
         </ul>
       </div>

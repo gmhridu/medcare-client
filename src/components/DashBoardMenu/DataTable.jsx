@@ -39,7 +39,7 @@ const DataTable = ({ columns, data, searchFields }) => {
   }, [data, search, searchFields]);
 
   return (
-    <div className="container mx-auto my-10">
+    <div className="container mx-auto my-10 overflow-x-auto">
       <div className="w-full md:w-full">
         <Input
           label="Search"
