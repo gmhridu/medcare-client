@@ -15,6 +15,11 @@ const ManageCamps = () => {
   const queryClient = useQueryClient();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCamp, setSelectedCamp] = useState(null);
+  const [toggleDropDown, setToggleDropDown] = useState(false);
+
+  const handleToggle = () => {
+    setToggleDropDown((isOpen) =>!isOpen);
+  };
 
   const {
     data: camps = [],
@@ -128,33 +133,38 @@ const ManageCamps = () => {
                         {camp?.healthcareProfessional}
                       </td>
                       <td className="px-6 py-4">
-                        <div className="dropdown relative">
+                        <div
+                          className="dropdown relative"
+                          tabIndex={0}
+                          onClick={handleToggle}
+                        >
                           <button
                             className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                            onClick={() => handleEdit(camp)}
                           >
                             <FaRegEdit className="text-xl" />
                           </button>
-                          <ul className="mt-3 shadow menu menu-sm dropdown-content bg-white p-2 border z-50 -right-10 top-4">
-                            <div className="flex gap-5">
-                              <div className="">
-                                <button
-                                  onClick={() => handleEdit(camp)}
-                                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                >
-                                  Edit
-                                </button>
+                          {toggleDropDown && (
+                            <ul className="mt-3 shadow menu menu-sm dropdown-content bg-white p-2 border z-50 -right-10 top-4">
+                              <div className="flex gap-5">
+                                <div className="">
+                                  <button
+                                    onClick={() => handleEdit(camp)}
+                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                  >
+                                    Edit
+                                  </button>
+                                </div>
+                                <div className="">
+                                  <button
+                                    onClick={() => handleDelete(camp?._id)}
+                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
                               </div>
-                              <div className="">
-                                <button
-                                  onClick={() => handleDelete(camp?._id)}
-                                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                >
-                                  Delete
-                                </button>
-                              </div>
-                            </div>
-                          </ul>
+                            </ul>
+                          )}
                         </div>
                       </td>
                     </tr>

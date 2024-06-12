@@ -6,6 +6,8 @@ import Loader from '../Shared/Loader/Loader';
 import Container from '@/components/Container/Container';
 import Heading from '../Shared/Heading';
 import CampReservation from './CampReservation';
+import Rating from "@mui/material/Rating";
+import StarIcon from "@mui/icons-material/Star";
 
 const CampDetails = () => {
   const { id } = useParams()
@@ -81,8 +83,22 @@ const CampDetails = () => {
                 text-neutral-500
               "
                   >
-                    <div>{camp?.rating} rating</div>
-                    <div>{camp?.participantCount} participant</div>
+                    <div className='flex items-center gap-x-1'>
+                      <Rating
+                        name="read-only"
+                        value={camp?.averageRating || '0'}
+                        precision={0.5}
+                        readOnly
+                        emptyIcon={
+                          <StarIcon
+                            style={{ opacity: 0.55 }}
+                            fontSize="inherit"
+                          />
+                        }
+                      />
+                      ({camp?.averageRating ? camp?.averageRating : "0"} rating)
+                    </div>
+                    <div>{camp?.participantCount ? camp?.participantCount : "0"} participant</div>
                   </div>
                 </div>
 

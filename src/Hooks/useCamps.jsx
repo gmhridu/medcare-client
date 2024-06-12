@@ -2,7 +2,7 @@ import React from "react";
 import useAxiosCommon from "./useAxiosCommon";
 import { useQuery } from "@tanstack/react-query";
 
-const useCamps = (category, page, size) => {
+const useCamps = (category, page, size, shouldFetch) => {
   const axiosCommon = useAxiosCommon();
   return useQuery({
     queryKey: ["camps", category, page, size],
@@ -11,6 +11,7 @@ const useCamps = (category, page, size) => {
       const { data } = await axiosCommon(url);
       return data;
     },
+    enabled: shouldFetch,
   });
 };
 
