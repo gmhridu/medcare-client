@@ -67,9 +67,9 @@ const router = createBrowserRouter([
         path: "add-camp",
         element: (
           <PrivateRoute>
-            <ParticipantRoutes>
+            <OrganizerRoute>
               <AddCamp />
-            </ParticipantRoutes>
+            </OrganizerRoute>
           </PrivateRoute>
         ),
       },

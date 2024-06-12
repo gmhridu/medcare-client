@@ -1,6 +1,7 @@
 import useRole from '@/Hooks/useRole';
 import Loader from '@/pages/Shared/Loader/Loader';
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 
 const ParticipantRoutes = ({ children }) => {
   const [role, isLoading] = useRole();

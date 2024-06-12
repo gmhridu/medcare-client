@@ -13,7 +13,7 @@ const OrganizerRoute = ({children}) => {
   if (role === 'organizer') return children
 
 
-  return <Navigate to={'/dashboard'} replace/>
+  return <Navigate to={"/dashboard"} replace />;
 };
 
 export default OrganizerRoute;
